@@ -184,6 +184,37 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
 
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
+
+<style>
+.pbtn{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;margin:0;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#0B0B0C;z-index:2}
+.pbtn .pico{width:68px;height:68px;border-radius:50%;background:#FF4A1C;display:flex;align-items:center;justify-content:center;transform:scale(.6);opacity:0;transition:transform .6s var(--ease),opacity .4s;box-shadow:0 12px 40px -8px rgba(255,74,28,.7)}
+.pbtn .pico svg{margin-left:3px}
+.pbtn .plab{color:#EFEAE0;font-size:11px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .6s var(--ease);text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.card:hover .pbtn .pico,.monitor:hover .pbtn .pico,.pbtn:focus-visible .pico{transform:scale(1);opacity:1}
+.card:hover .pbtn .plab,.monitor:hover .pbtn .plab,.pbtn:focus-visible .plab{opacity:1;transform:none}
+.pbtn:focus-visible{outline:2px solid #FF4A1C;outline-offset:-2px}
+@media (hover:none){.pbtn .pico{transform:scale(.8);opacity:.92}}
+
+.pl{--ease:cubic-bezier(.16,1,.3,1);color:#EFEAE0;font-family:Geist,system-ui,sans-serif;position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:16px}
+.pl.open{display:flex}
+.pl-bg{position:absolute;inset:0;background:rgba(11,11,12,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;transition:opacity .5s var(--ease)}
+.pl.show .pl-bg{opacity:1}
+.pl-wrap{position:relative;width:min(1180px,94vw);display:flex;flex-direction:column;gap:14px}
+.pl-wrap.portrait{width:min(440px,94vw,calc((100vh - 190px) * 9 / 16))}
+.pl-stage{position:relative;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;box-shadow:0 50px 140px -30px rgba(255,74,28,.45);transform-origin:0 0;will-change:transform}
+.pl-wrap.portrait .pl-stage{aspect-ratio:9/16}
+.pl-stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.pl-top,.pl-info{display:flex;justify-content:space-between;align-items:center;gap:16px;opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .7s var(--ease)}
+.pl.show .pl-top,.pl.show .pl-info{opacity:1;transform:none;transition-delay:.25s}
+.pl-info{align-items:flex-start}
+.pl-info h3{margin:0;font-family:Archivo,sans-serif;font-stretch:110%;font-weight:800;font-size:clamp(20px,2.4vw,30px);letter-spacing:-.02em;line-height:1.1}
+.pl-info p{margin:6px 0 0;color:#B8B1A6;font-size:15px;line-height:1.5;max-width:640px}
+.pl-btn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(239,234,224,.3);background:rgba(20,19,18,.7);color:#EFEAE0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .4s var(--ease),color .4s,border-color .4s,transform .4s var(--ease)}
+.pl-btn:hover{background:#FF4A1C;border-color:#FF4A1C;color:#0B0B0C;transform:scale(1.06)}
+.pl-btn:focus-visible{outline:2px solid #FF4A1C;outline-offset:3px}
+.pl-nav{display:flex;gap:10px;flex-shrink:0}
+@media (max-width:640px){.pl-info{flex-direction:column}.pl-info p{font-size:14px}}
+</style>
 </head>
 <body>
 <div class="pf" style="width: 100%; min-height: 100vh">
@@ -232,7 +263,7 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
       <div style="flex: 0 1 520px; min-width: 280px; margin-bottom: 12px">
         <div class="monitor">
           <video data-v="1" src="assets/videos/Animated_Music_Video.mp4" muted loop playsinline autoplay preload="auto" aria-label="Preview: Animated music video"></video>
-          <div class="mon-hud mono" style="font-size: 11px"><span><span class="rec"></span>Now playing</span><span>V1 · 03:10</span></div>
+          <div class="mon-hud mono" style="font-size: 11px"><span><span class="rec"></span>Now playing</span><span>V1 · 03:10</span></div><button class="pbtn" type="button" data-src="assets/videos/Animated_Music_Video.mp4" aria-label="Play Animated Music Video with sound"><span class="pico"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l11-6.5z" fill="currentColor"></path></svg></span><span class="plab mono">Play with sound</span></button>
         </div>
         <div class="mono" style="display: flex; justify-content: space-between; margin-top: 14px; color: #9A9389; font-size: 11px"><span>Animated Music Video</span><span>Google Flow · Canva</span></div>
       </div>
@@ -276,15 +307,15 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
 
 <!-- REEL -->
 <section id="reel" style="position: relative; padding: 120px 0 140px; overflow: hidden">
-  <img class="px" src="assets/img/bg4.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35">
-  <div style="position: absolute; inset: 0; background: linear-gradient(180deg, #0B0B0C 0%, rgba(11,11,12,.82) 18%, rgba(11,11,12,.9) 80%, #0B0B0C 100%)"></div>
+  <img class="px" src="assets/img/bg4.jpg" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 1000px; object-fit: cover; opacity: .95; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 55%, transparent 100%)">
+  <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,11,12,.55) 0%, rgba(11,11,12,.15) 60%, rgba(11,11,12,.35) 100%)"></div>
   <div class="wrap" style="position: relative">
     <div class="sec-head">
       <div>
         <div class="trk mono rv"><b>01</b> V1 — The Reel</div>
         <h2 class="disp rv" style="margin: 22px 0 0; font-size: clamp(52px, 8vw, 128px)">Made with<br><span style="color: #FF4A1C">prompts</span>, cut<br>in minutes.</h2>
       </div>
-      <p class="rv" style="max-width: 380px; margin: 0; color: #B8B1A6; font-size: 16px; line-height: 1.6">Every frame below was generated with Google Flow and OpenArt, then cut and titled in Canva. No Premiere, no week-long render queues. Hover a clip to bring it to life.</p>
+      <p class="rv" style="max-width: 380px; margin: 0; color: #B8B1A6; font-size: 16px; line-height: 1.6">Every frame below was generated with Google Flow and OpenArt, then cut and titled in Canva. No Premiere, no week-long render queues. Click any clip to watch it full-length, with sound.</p>
     </div>
 
     <div role="group" aria-label="Filter the reel" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px">
@@ -300,7 +331,7 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
             <div class="frame">
               <video data-v="1" src="{{ v.src }}" muted loop playsinline preload="metadata" aria-label="Preview: {{ v.title }}"></video>
               <div class="hud"><span class="tc">{{ v.n }}</span><span class="tc">{{ v.dur }}</span></div>
-              <span class="corner a"></span><span class="corner b"></span>
+              <span class="corner a"></span><span class="corner b"></span><button class="pbtn" type="button" aria-label="Play {{ v.title }} with sound"><span class="pico"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l11-6.5z" fill="currentColor"></path></svg></span><span class="plab mono">Play with sound</span></button>
             </div>
             <div class="cap">
               <div>
@@ -323,7 +354,7 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
               <div class="frame">
                 <video data-v="1" src="{{ v.src }}" muted loop playsinline preload="metadata" aria-label="Preview: {{ v.title }}"></video>
                 <div class="hud"><span class="tc">{{ v.n }}</span><span class="tc">{{ v.dur }}</span></div>
-                <span class="corner a"></span><span class="corner b"></span>
+                <span class="corner a"></span><span class="corner b"></span><button class="pbtn" type="button" aria-label="Play {{ v.title }} with sound"><span class="pico"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l11-6.5z" fill="currentColor"></path></svg></span><span class="plab mono">Play with sound</span></button>
               </div>
               <div class="cap">
                 <div>
@@ -427,8 +458,8 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
 
 <!-- B-SIDE -->
 <section id="bside" class="paper" style="padding: 140px 0 120px; overflow: hidden">
-  <img class="px" src="assets/img/bg3.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55">
-  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(239,234,224,.9) 0%, rgba(239,234,224,.55) 60%, rgba(239,234,224,.2) 100%)"></div>
+  <img class="px" src="assets/img/bg3.jpg" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 1150px; object-fit: cover; object-position: center top; -webkit-mask-image: linear-gradient(180deg, #000 75%, transparent 100%); mask-image: linear-gradient(180deg, #000 75%, transparent 100%)">
+  <div style="position: absolute; left: 0; right: 0; top: 0; height: 1150px; background: radial-gradient(ellipse 55% 50% at 50% 45%, rgba(239,234,224,.78) 0%, rgba(239,234,224,.25) 70%, rgba(239,234,224,0) 100%)"></div>
   <div class="wrap" style="position: relative">
     <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px; padding-bottom: 40px">
       <div>
@@ -467,8 +498,8 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
 
 <!-- LOGOS -->
 <section id="logos" style="position: relative; padding: 140px 0; overflow: hidden">
-  <img class="px" src="assets/img/bg2.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .7">
-  <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,12,.3), rgba(11,11,12,.85) 55%, #0B0B0C)"></div>
+  <img class="px" src="assets/img/bg2.jpg" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 1000px; object-fit: cover; -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%); mask-image: linear-gradient(180deg, #000 60%, transparent 100%)">
+  <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,11,12,.6) 0%, rgba(11,11,12,.1) 55%, rgba(11,11,12,.2) 100%)"></div>
   <div class="wrap" style="position: relative">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: end; margin-bottom: 64px">
       <div>
@@ -493,8 +524,8 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
 
 <!-- CONTACT -->
 <section id="contact" style="position: relative; padding: 160px 0 0; overflow: hidden">
-  <img class="px" src="assets/img/bg1.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .85">
-  <div style="position: absolute; inset: 0; background: linear-gradient(180deg, #0B0B0C 0%, rgba(11,11,12,.25) 30%, rgba(11,11,12,.55) 70%, #0B0B0C 100%)"></div>
+  <img class="px" src="assets/img/bg1.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+  <div style="position: absolute; inset: 0; background: linear-gradient(180deg, #0B0B0C 0%, rgba(11,11,12,0) 22%, rgba(11,11,12,.25) 65%, #0B0B0C 100%)"></div>
   <div class="wrap" style="position: relative">
     <div class="trk mono rv"><b>06</b> End credits</div>
     <h2 class="giant rv" style="margin: 28px 0 0">The screen's<br><span style="color: #FF4A1C">empty.</span><br>Let's fill it.</h2>
@@ -511,6 +542,23 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
     <div class="disp" style="font-size: 21vw; line-height: .78; color: #141312; white-space: nowrap; text-align: center; margin-bottom: -2vw; -webkit-text-stroke: 1px rgba(239,234,224,.1)">GILDO</div>
   </footer>
 </section>
+</div>
+
+<div id="player" class="pl" aria-hidden="true">
+  <div class="pl-bg" data-close></div>
+  <div class="pl-wrap" role="dialog" aria-modal="true" aria-labelledby="pl-t">
+    <div class="pl-top mono"><span><span class="rec"></span><b id="pl-n" style="color:#FF4A1C;font-weight:500">01</b> &nbsp;·&nbsp; <span id="pl-dur">00:00</span> &nbsp;·&nbsp; Press play for sound</span>
+      <button class="pl-btn" type="button" data-close aria-label="Close player"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"></path></svg></button>
+    </div>
+    <div class="pl-stage"><iframe id="pl-f" title="Video player" src="about:blank" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe></div>
+    <div class="pl-info">
+      <div><h3 id="pl-t"></h3><p id="pl-d"></p><span class="mono tag" id="pl-tools" style="font-size:11px"></span></div>
+      <div class="pl-nav">
+        <button class="pl-btn" type="button" id="pl-prev" aria-label="Previous video"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M11 3L5 9l6 6"></path></svg></button>
+        <button class="pl-btn" type="button" id="pl-next" aria-label="Next video"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 3l6 6-6 6"></path></svg></button>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
 (function(){
@@ -653,6 +701,106 @@ function render(){
 render();
 C.hook();
 setInterval(() => { C.state.t = (C.state.t + 1) % 360000; const v = C.renderVals(); const el = document.getElementById('tc'); if (el) el.textContent = v.tc; }, 1000);
+})();
+
+(function(){
+  const pl = document.getElementById('player'), wrap = pl.querySelector('.pl-wrap'), stage = pl.querySelector('.pl-stage'), fr = document.getElementById('pl-f');
+  const DRIVE = {"Animated_Music_Video": "1jWESvKDsllusJ8wHrG5KtFMLm_VniAI4", "Music_Video": "1tIaZ0RGAkvkPtzFxwuvgwZz8zgftDSGs", "Instagram_short_videos": "1Jtc7vN-yY9ilg0jhnCf5LqXu8ckFQbuX", "Facebook_Content_Video": "1yZP0NkH-hKcVgLEKfSTQQ8fc8ir2xX-s", "Biography_video": "19WyOt63pgh5vp1tlWgXRxZZz4MADkrDl", "Tiktok_Video_Content": "1Zn1gtk9raDMnaz2_rNxF5kOzFabkjRo3", "Tribute_Video": "1BhwwV08cwY6axon6teC99e9tkLBsde2V", "Tiktok_Video_2": "1zMN8p0d3epjFt2OZbv_EZb7Wg6ZI7mdQ", "Product_Ads_2": "185QZHSL_ZvLywBcvyAaZ9zMv6MOmGSjc", "Instagram_short_video_2": "13wtrp3U-HsU3d0j5sTLpSzocjn-PqEoL", "Music_Video_2": "1woSzy9IbCzY8wUIsv2yyKnLC3Vd2ddrH", "Realistic_Music_Video": "1Ch556IBIXWK452HkDG6HgNrrwB-vV5Sm", "Explainer_Video": "1rjxpxH8MLYI2vhfhKKICJHB_L33q4Zr7", "Biography_Video_3": "1eOKbsefNa-ktQuAUaqMRf2mIh9vqoduz", "Biography_Video_2": "16TPaDAirPF5iC9X6FRkjr8zVMZcKVpk6", "Product_Ads": "1f0BRnWbN_duynXUtJ45vSa6hBcWyrI__", "App_Presentation_video": "1IqOsxAsB_xC0xa90aX6NoiMwj022rlu6", "About_a_company_presentation": "1_hz-7IWcRFprS7wd9wE0V2FhEaxssB18"};
+  const $ = (id) => document.getElementById(id);
+  const EASE = 'cubic-bezier(.16,1,.3,1)';
+  let cur = null, lastFocus = null;
+  const cards = () => Array.prototype.slice.call(document.querySelectorAll('#reel .card'));
+  const full = (src) => { const n = src.split('/').pop().replace('.mp4', ''); return DRIVE[n] ? 'https://drive.google.com/file/d/' + DRIVE[n] + '/preview' : 'about:blank'; };
+  const rectOf = (el) => el.getBoundingClientRect();
+  function flipFrom(r){
+    const f = rectOf(stage);
+    stage.style.transition = 'none';
+    stage.style.transform = 'translate(' + (r.left - f.left) + 'px,' + (r.top - f.top) + 'px) scale(' + (r.width / f.width) + ',' + (r.height / f.height) + ')';
+    stage.style.borderRadius = '4px';
+    stage.getBoundingClientRect();
+    stage.style.transition = 'transform .85s ' + EASE + ', border-radius .85s ' + EASE;
+    stage.style.transform = 'none';
+    stage.style.borderRadius = '';
+  }
+  function fill(card, src){
+    const q = (s) => card ? card.querySelector(s) : null;
+    $('pl-t').textContent = q('h3') ? q('h3').textContent : 'Animated Music Video';
+    $('pl-d').textContent = q('.cap p') ? q('.cap p').textContent : '';
+    $('pl-tools').textContent = q('.tag') ? q('.tag').textContent : 'Google Flow · Canva';
+    const tcs = card ? card.querySelectorAll('.hud .tc') : [];
+    $('pl-n').textContent = tcs[0] ? tcs[0].textContent : '01';
+    $('pl-dur').textContent = tcs[1] ? tcs[1].textContent : '03:10';
+    wrap.classList.toggle('portrait', !!(card && card.closest('.vert')));
+    fr.src = full(src);
+  }
+  function open(card, src, fromEl){
+    lastFocus = document.activeElement;
+    cur = card;
+    document.querySelectorAll('video[data-v]').forEach((x) => x.pause());
+    pl.classList.add('open'); pl.setAttribute('aria-hidden', 'false');
+    document.documentElement.style.overflow = 'hidden';
+    fill(card, src);
+    flipFrom(rectOf(fromEl));
+    requestAnimationFrame(() => pl.classList.add('show'));
+    setTimeout(() => pl.querySelector('[data-close].pl-btn').focus({ preventScroll: true }), 60);
+  }
+  function close(){
+    if (!pl.classList.contains('open')) return;
+    const cf = cur && cur.querySelector('.frame');
+    pl.classList.remove('show');
+    if (cf) {
+      const r = rectOf(cf), f = rectOf(stage);
+      if (r.bottom > 0 && r.top < innerHeight) {
+        stage.style.transition = 'transform .6s ' + EASE + ', border-radius .6s ' + EASE;
+        stage.style.transform = 'translate(' + (r.left - f.left) + 'px,' + (r.top - f.top) + 'px) scale(' + (r.width / f.width) + ',' + (r.height / f.height) + ')';
+        stage.style.borderRadius = '4px';
+      }
+    }
+    setTimeout(() => {
+      pl.classList.remove('open'); pl.setAttribute('aria-hidden', 'true');
+      stage.style.transition = 'none'; stage.style.transform = ''; stage.style.borderRadius = '';
+      fr.src = 'about:blank';
+      document.documentElement.style.overflow = '';
+      document.querySelectorAll('video[data-v]').forEach((x) => { const r = x.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) { const p = x.play(); if (p && p.catch) p.catch(() => {}); } });
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    }, 520);
+  }
+  function step(d){
+    const list = cards(); if (!list.length) return;
+    let i = list.indexOf(cur); i = (i + d + list.length) % list.length;
+    cur = list[i];
+    const pv = cur.querySelector('video');
+    stage.style.transition = 'opacity .25s'; stage.style.opacity = '0';
+    setTimeout(() => { fill(cur, pv.getAttribute('src')); stage.style.opacity = '1'; }, 220);
+  }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('.pbtn');
+    if (b) {
+      e.preventDefault();
+      const card = b.closest('.card');
+      if (card) { open(card, card.querySelector('video').getAttribute('src'), card.querySelector('.frame')); }
+      else {
+        const first = cards().find((c) => c.querySelector('video').getAttribute('src') === b.dataset.src) || null;
+        open(first, b.dataset.src, b.closest('.monitor'));
+      }
+      return;
+    }
+    if (e.target.closest('[data-close]')) close();
+  });
+  $('pl-prev').addEventListener('click', () => step(-1));
+  $('pl-next').addEventListener('click', () => step(1));
+  document.addEventListener('keydown', (e) => {
+    if (!pl.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') step(1);
+    else if (e.key === 'ArrowLeft') step(-1);
+    else if (e.key === 'Tab') {
+      const f = Array.prototype.slice.call(pl.querySelectorAll('button, iframe'));
+      const i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+    }
+  });
 })();
 </script>
 </body>
