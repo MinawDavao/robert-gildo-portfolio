@@ -182,6 +182,15 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
 .flink{color:#EFEAE0;text-decoration:none;display:flex;justify-content:space-between;align-items:center;min-height:56px;border-bottom:1px solid var(--line);transition:padding .5s var(--ease),color .4s}
 .flink:hover{padding-left:14px;color:#FF4A1C}
 
+/* recent work spotlight */
+.spot-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:48px;align-items:center}
+@media (max-width:900px){.spot-grid{grid-template-columns:minmax(0,1fr);gap:28px}}
+.sticker{position:absolute;right:18px;top:52px;z-index:3;pointer-events:none;background:#FF4A1C;color:#0B0B0C;font-size:24px;padding:6px 14px;transform:rotate(6deg);box-shadow:4px 4px 0 #0B0B0C;animation:wob 3.2s ease-in-out infinite}
+@keyframes wob{50%{transform:rotate(-3deg) scale(1.06)}}
+.spot .cap{display:block;padding-top:0}
+.spot .cap h3{font-family:Archivo,sans-serif;font-stretch:115%;font-weight:850;font-size:clamp(32px,3.8vw,56px);letter-spacing:-.03em;line-height:.95;text-transform:uppercase}
+.spot .cap p{font-size:16px;line-height:1.6;color:#B8B1A6;margin-top:18px}
+
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
@@ -227,6 +236,7 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
     <span class="mono" style="color: #9A9389">Robert Paul Gildo</span>
   </a>
   <nav class="navlinks mono" style="display: flex; gap: 28px" aria-label="Sections">
+    <a href="#recent">New</a>
     <a href="#reel">Reel</a>
     <a href="#stack">Stack</a>
     <a href="#services">Services</a>
@@ -295,10 +305,38 @@ a{color:#FF4A1C}a:hover{color:#FF7A55}
   </div>
 </div>
 
+<!-- RECENT WORK -->
+<section id="recent" class="wrap" style="padding-top: 110px; padding-bottom: 40px">
+  <div class="sec-head" style="margin-bottom: 40px">
+    <div>
+      <div class="trk mono rv"><b>New</b> Recent work — November 2026</div>
+      <h2 class="disp rv" style="margin: 22px 0 0; font-size: clamp(44px, 6.4vw, 104px)">Fresh off<br>the <span style="color: #FF4A1C">timeline.</span></h2>
+    </div>
+    <p class="rv" style="max-width: 380px; margin: 0; color: #B8B1A6; font-size: 16px; line-height: 1.6">My latest commission: a full lyric video for the pop-punk band Send Nukes.</p>
+  </div>
+  <article class="card spot rv-s">
+    <div class="spot-grid">
+      <div class="frame">
+        <video data-v="1" src="assets/videos/SendNukes_Decline.mp4" poster="assets/img/sn_poster.jpg" muted loop playsinline preload="metadata" aria-label="Preview: Send Nukes, Decline lyric video"></video>
+        <div class="hud"><span class="tc">NEW</span><span class="tc">03:00</span></div>
+        <span class="sticker cond">Commissioned</span>
+        <span class="corner a"></span><span class="corner b"></span><button class="pbtn" type="button" aria-label="Play Send Nukes, Decline lyric video with sound"><span class="pico"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M7 4.5v13l11-6.5z" fill="currentColor"></path></svg></span><span class="plab mono">Play with sound</span></button>
+      </div>
+      <div class="cap">
+        <div class="mono" style="color: #FF4A1C; margin-bottom: 18px">Lyric video · Pop-punk · 2026</div>
+        <h3>Send Nukes — “Decline”</h3>
+        <p>A three-minute lyric video with a loud pop-punk, comic-book attitude: exploding sunsets, ink-sketch city scenes, and every lyric slammed on screen as graffiti, ransom-note cut-outs and comic captions. All scenes generated in Google Flow, then timed to the track and edited in Canva.</p>
+        <span class="mono tag" style="font-size: 11px">Google Flow · Canva</span>
+        <div class="mono" style="margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(239,234,224,.12); color: #9A9389; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap"><span>Client — Send Nukes</span><span>Full track · 1080p</span></div>
+      </div>
+    </div>
+  </article>
+</section>
+
 <!-- STATS -->
 <section class="wrap" style="padding-top: 24px; padding-bottom: 24px">
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))">
-    <div class="stat rv"><div class="num">18</div><div class="mono" style="color: #9A9389; margin-top: 14px">Films in this reel</div></div>
+    <div class="stat rv"><div class="num">19</div><div class="mono" style="color: #9A9389; margin-top: 14px">Films in this reel</div></div>
     <div class="stat rv"><div class="num">10<span style="color: #FF4A1C">+</span></div><div class="mono" style="color: #9A9389; margin-top: 14px">Years designing</div></div>
     <div class="stat rv"><div class="num">10<span style="color: #FF4A1C">×</span></div><div class="mono" style="color: #9A9389; margin-top: 14px">Faster than a manual Premiere edit</div></div>
     <div class="stat rv"><div class="num">1</div><div class="mono" style="color: #9A9389; margin-top: 14px">Thing I still do by hand: logos</div></div>
@@ -600,6 +638,7 @@ class Component extends DCLogic {
   }
   renderVals() {
     const V = [
+      { k: 'music', o: 'w', src: 'assets/videos/SendNukes_Decline.mp4', title: 'Send Nukes — “Decline”', desc: 'Commissioned pop-punk lyric video: comic-book sunsets, ink-sketch scenes and graffiti lyrics.', tools: 'Google Flow · Canva', dur: '03:00' },
       { k: 'music', o: 'w', src: 'assets/videos/Animated_Music_Video.mp4', title: 'Animated Music Video', desc: 'Illustrated characters and a magical-realism world, carried across a full three-minute track.', tools: 'Google Flow · Canva', dur: '03:10' },
       { k: 'music', o: 'w', src: 'assets/videos/Music_Video.mp4', title: 'Watercolour Music Video', desc: 'A storybook piano piece in soft ink and wash, every scene generated in one hand-painted style.', tools: 'Google Flow · OpenArt · Canva', dur: '03:30' },
       { k: 'music', o: 'w', src: 'assets/videos/Realistic_Music_Video.mp4', title: 'Photoreal Music Video', desc: 'Live-action look with a consistent lead character from shot to shot. No camera crew, no set.', tools: 'Google Flow · Canva', dur: '02:55' },
@@ -710,7 +749,7 @@ setInterval(() => { C.state.t = (C.state.t + 1) % 360000; const v = C.renderVals
 
 (function(){
   const pl = document.getElementById('player'), wrap = pl.querySelector('.pl-wrap'), stage = pl.querySelector('.pl-stage'), fr = document.getElementById('pl-f');
-  const DRIVE = {"Biography_Video_2": "1IAJsljKTB8d0Mz6OmnGeGokv9TqtnLgL", "Biography_video": "1BA7jJI63nnVeusM2cDGAngljqrrKYXGb", "Animated_Music_Video": "1i-XghaMdhD6tweRmh8E3hYK-3BFWQnRt", "Instagram_short_video_2": "1CPoamKQMmLozplrCkJbeLiQ-c1_2UTQc", "Tribute_Video": "1yCxXp3ciIRSarOrzcQ0bDyTLVepLcBPp", "Product_Ads_2": "11lEUL9VqaGLGdNFuum6o3ooiyZFQgBsQ", "Explainer_Video": "1wKl9EF4f6aOry_VDPRFOmL8ZvaRj4Uvq", "Instagram_short_videos": "16N2qMKJkJmu12Uai20O2JS3cnpSapMTk", "Music_Video": "1WlRvtkOOE_qydhp6v5RziSY2WFw48Vb3", "Tiktok_Video_2": "1G2ciq-ti46hZh2T4m5cuG3v1euxkztYy", "Music_Video_2": "1PdOl77mGK3VQHhJmqo9MITxvINEzjRx8", "Realistic_Music_Video": "1hjHSS-V30KXAJQvMtULoYd81HWu6TNZi", "App_Presentation_video": "1dkd2qgYYvn7UWqzxkPegti7-n6G3wRmM", "About_a_company_presentation": "1NFPHOpOAxItyFPj6Q49-_TLqVT4OVVI0", "Facebook_Content_Video": "1PS0hO-ZKkLOBFEwEAmTcf3siYvQsDN_W", "Tiktok_Video_Content": "1Fm2QVL2qrUJDJ_wSeUamGYo7fhyktYEO", "Biography_Video_3": "1GlXzZSCiVhS2urMFZ_Cz7hK2QRRni-d0", "Product_Ads": "1dw30wTNy3oxdQCFnDDcD6UG61Lk-YUrk"};
+  const DRIVE = {"Biography_Video_2": "1IAJsljKTB8d0Mz6OmnGeGokv9TqtnLgL", "Biography_video": "1BA7jJI63nnVeusM2cDGAngljqrrKYXGb", "Animated_Music_Video": "1i-XghaMdhD6tweRmh8E3hYK-3BFWQnRt", "Instagram_short_video_2": "1CPoamKQMmLozplrCkJbeLiQ-c1_2UTQc", "Tribute_Video": "1yCxXp3ciIRSarOrzcQ0bDyTLVepLcBPp", "Product_Ads_2": "11lEUL9VqaGLGdNFuum6o3ooiyZFQgBsQ", "Explainer_Video": "1wKl9EF4f6aOry_VDPRFOmL8ZvaRj4Uvq", "Instagram_short_videos": "16N2qMKJkJmu12Uai20O2JS3cnpSapMTk", "Music_Video": "1WlRvtkOOE_qydhp6v5RziSY2WFw48Vb3", "Tiktok_Video_2": "1G2ciq-ti46hZh2T4m5cuG3v1euxkztYy", "Music_Video_2": "1PdOl77mGK3VQHhJmqo9MITxvINEzjRx8", "Realistic_Music_Video": "1hjHSS-V30KXAJQvMtULoYd81HWu6TNZi", "App_Presentation_video": "1dkd2qgYYvn7UWqzxkPegti7-n6G3wRmM", "About_a_company_presentation": "1NFPHOpOAxItyFPj6Q49-_TLqVT4OVVI0", "Facebook_Content_Video": "1PS0hO-ZKkLOBFEwEAmTcf3siYvQsDN_W", "Tiktok_Video_Content": "1Fm2QVL2qrUJDJ_wSeUamGYo7fhyktYEO", "Biography_Video_3": "1GlXzZSCiVhS2urMFZ_Cz7hK2QRRni-d0", "Product_Ads": "1dw30wTNy3oxdQCFnDDcD6UG61Lk-YUrk", "SendNukes_Decline": "1LPBxPkalt_Iav9u53Wt8Yf1T26Ghy9iE"};
   const $ = (id) => document.getElementById(id);
   const EASE = 'cubic-bezier(.16,1,.3,1)';
   let cur = null, lastFocus = null;
